@@ -9,8 +9,9 @@ import (
 )
 
 func setup() {
-	database.LoadLocalDatabase("coursedb.json")
+	database.LoadLocalDatabase("test-coursedb.json")
 }
+
 func TestGetSections(t *testing.T) {
 	setup()
 	assert := assert.New(t)

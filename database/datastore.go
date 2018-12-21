@@ -44,7 +44,11 @@ func (ds *DefaultDatastore) GetSections(courseName, term string, activityTypes .
 
 	var sections []models.CourseSection
 	dept := strings.Split(courseName, " ")[0]
-	for sectionName, s := range ds.db[dept][courseName] {
+	for sectionName, section := range ds.db[dept][courseName] {
+		if !strings.HasPrefix(sectionName, courseName) {
+			continue
+		}
+		s := ParseSection(section)
 		if !ds.helper.IsIncluded(s.Activity[0], activityTypes) {
 			continue
 		}
@@ -74,15 +78,20 @@ func (ds *DefaultDatastore) CourseExists(courseName string) bool {
 	return present
 }
 
+// CourseHasSectionWithActivity returns the courses if it has the ActivityType.
 func (ds *DefaultDatastore) CourseHasSectionWithActivity(courseName string, activity models.ActivityType) bool {
 	dept := strings.Split(courseName, " ")[0]
-	for _, section := range ds.db[dept][courseName] {
-		if len(section.Activity) == 0 {
+	for sectionName, section := range ds.db[dept][courseName] {
+		if !strings.HasPrefix(sectionName, courseName) {
+			continue
+		}
+		s := ParseSection(section)
+		if len(s.Activity) == 0 {
 			fmt.Printf("WARNING: CourseHasSectionWithActivity(%s, %s) section has no activity\n", courseName, activity)
 			continue
 		}
 
-		if section.Activity[0] == activity.String() {
+		if s.Activity[0] == activity.String() {
 			return true
 		}
 	}

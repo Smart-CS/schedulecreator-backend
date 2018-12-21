@@ -24,7 +24,21 @@ type Section struct {
 // CourseDatabase is the schema for our courses database.
 // Schema: DEPARTMENT_NAME -> COURSE_NAME -> COURSE_SECTION_NAME -> Section
 // e.g. DB["CPSC"]["CPSC 121"]["CPSC 121 101"] to get the underlying Section.
-type CourseDatabase map[string]map[string]map[string]Section
+type CourseDatabase map[string]map[string]map[string]interface{}
+
+// ParseSection returns a section from an interface.
+func ParseSection(section interface{}) Section {
+	b, err := json.Marshal(section)
+	if err != nil {
+		panic(err)
+	}
+	var parsedSection Section
+	err = json.Unmarshal(b, &parsedSection)
+	if err != nil {
+		panic(err)
+	}
+	return parsedSection
+}
 
 // ValidCourses returns the valid courses.
 func ValidCourses() []string {

@@ -16,7 +16,7 @@ import (
 func TestSchedulesHandlerEmptyBody(t *testing.T) {
 	t.Log("hitting schedules endpoint with a course without possible schedules should return an empty body")
 	assert := assert.New(t)
-	database.LoadLocalDatabase("../database/coursedb.json")
+	database.LoadLocalDatabase("../database/test-coursedb.json")
 
 	s := server.NewServer()
 	assert.NotNil(s, "a new server shouldn't be nil")

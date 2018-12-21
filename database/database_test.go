@@ -9,13 +9,13 @@ import (
 
 func TestDatabase(t *testing.T) {
 	assert := assert.New(t)
-	assert.NotPanics(func() { database.LoadLocalDatabase("coursedb.json") })
+	assert.NotPanics(func() { database.LoadLocalDatabase("test-coursedb.json") })
 	assert.NotZero(len(database.CourseDB()))
 }
 
 func TestValidCourses(t *testing.T) {
 	assert := assert.New(t)
-	database.LoadLocalDatabase("coursedb.json")
+	database.LoadLocalDatabase("test-coursedb.json")
 	validCourses := database.ValidCourses()
 	assert.Contains(validCourses, "CPSC 121")
 	assert.Contains(validCourses, "MATH 100")

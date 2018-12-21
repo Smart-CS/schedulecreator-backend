@@ -9,7 +9,7 @@ import (
 )
 
 func setupScheduleCreatorTests() {
-	database.LoadLocalDatabase("../database/coursedb.json")
+	database.LoadLocalDatabase("../database/test-coursedb.json")
 }
 
 type scheduleCreatorTestTable struct {

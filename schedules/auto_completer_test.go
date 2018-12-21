@@ -10,7 +10,7 @@ import (
 )
 
 func setupAutocompleterTests() {
-	database.LoadLocalDatabase("../database/coursedb.json")
+	database.LoadLocalDatabase("../database/test-coursedb.json")
 }
 
 func TestNewAutoCompleter(t *testing.T) {
